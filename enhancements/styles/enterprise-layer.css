@@ -1,0 +1,820 @@
+/**
+ * FUTURE-BME 2026 - Enterprise Enhancement Layer
+ * Version: 1.0.0
+ * 
+ * IMPORTANT: This file ADDS to existing Nicepage styles without modifying them.
+ * All rules use !important to override default Nicepage styles.
+ * 
+ * Color Palette Reference:
+ * - u-custom-color-1: #5380dd (Blue)
+ * - u-custom-color-2: #6e4fe3 (Purple)
+ * - u-custom-color-3: #17edd1 (Cyan/Teal)
+ * - u-custom-color-4: #101c35 (Dark Navy)
+ * - u-custom-color-5: #176370 (Dark Teal)
+ */
+
+/* ==========================================================================
+   CSS VARIABLES
+   ========================================================================== */
+:root {
+    --bme-primary: #101c35;
+    --bme-secondary: #6e4fe3;
+    --bme-accent: #17edd1;
+    --bme-blue: #5380dd;
+    --bme-teal: #176370;
+    --bme-white: #ffffff;
+    --bme-shadow-sm: 0 2px 8px rgba(16, 28, 53, 0.08);
+    --bme-shadow-md: 0 4px 16px rgba(16, 28, 53, 0.12);
+    --bme-shadow-lg: 0 8px 32px rgba(16, 28, 53, 0.16);
+    --bme-transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --bme-transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --bme-transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==========================================================================
+   GLOBAL ENHANCEMENTS
+   ========================================================================== */
+
+/* Improved text rendering */
+body.u-body {
+    text-rendering: optimizeLegibility !important;
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+}
+
+/* Smooth scrolling for the entire page */
+html {
+    scroll-behavior: smooth !important;
+}
+
+/* Remove outline for mouse users, keep for keyboard */
+*:focus:not(:focus-visible) {
+    outline: none !important;
+}
+
+/* Visible focus for keyboard navigation */
+*:focus-visible {
+    outline: 3px solid var(--bme-accent) !important;
+    outline-offset: 2px !important;
+}
+
+/* ==========================================================================
+   HEADER & NAVIGATION ENHANCEMENTS
+   ========================================================================== */
+
+/* Sticky Header with smooth shadow on scroll */
+.u-header {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 9999 !important;
+    transition: box-shadow var(--bme-transition-normal),
+        background-color var(--bme-transition-normal) !important;
+    will-change: box-shadow !important;
+}
+
+/* Header scrolled state - class added via JS */
+.u-header.scrolled {
+    box-shadow: var(--bme-shadow-lg) !important;
+}
+
+/* Navigation container */
+.u-nav-container {
+    transition: opacity var(--bme-transition-fast) !important;
+}
+
+/* Navigation link base styles */
+.u-nav-item .u-nav-link {
+    transition: color var(--bme-transition-fast),
+        background-color var(--bme-transition-fast),
+        transform var(--bme-transition-fast) !important;
+    position: relative !important;
+}
+
+/* Navigation link hover underline effect */
+.u-nav-container .u-nav-item .u-nav-link::after {
+    content: "" !important;
+    position: absolute !important;
+    bottom: 5px !important;
+    left: 50% !important;
+    width: 0 !important;
+    height: 2px !important;
+    background: var(--bme-accent) !important;
+    transition: width var(--bme-transition-normal),
+        left var(--bme-transition-normal) !important;
+    border-radius: 1px !important;
+}
+
+.u-nav-container .u-nav-item .u-nav-link:hover::after,
+.u-nav-container .u-nav-item .u-nav-link:focus::after {
+    width: calc(100% - 8px) !important;
+    left: 4px !important;
+}
+
+/* Dropdown menu enhancements */
+.u-nav-popup {
+    transition: opacity var(--bme-transition-fast),
+        transform var(--bme-transition-fast),
+        visibility var(--bme-transition-fast) !important;
+    box-shadow: var(--bme-shadow-md) !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+}
+
+/* Logo hover effect */
+.u-header .u-image-1 {
+    transition: transform var(--bme-transition-normal),
+        opacity var(--bme-transition-normal) !important;
+}
+
+.u-header .u-image-1:hover {
+    transform: scale(1.02) !important;
+    opacity: 0.95 !important;
+}
+
+/* Hamburger menu animation */
+.u-hamburger-link {
+    transition: transform var(--bme-transition-fast) !important;
+}
+
+.u-hamburger-link:hover {
+    transform: scale(1.1) !important;
+}
+
+.u-hamburger-link svg {
+    transition: transform var(--bme-transition-normal) !important;
+}
+
+/* ==========================================================================
+   BUTTON ENHANCEMENTS
+   ========================================================================== */
+
+/* All buttons base enhancement */
+.u-btn,
+.u-button-style,
+a.u-btn,
+a.u-button-style {
+    transition: all var(--bme-transition-normal) !important;
+    transform-origin: center !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+/* Button hover lift effect */
+.u-btn:hover,
+.u-button-style:hover,
+a.u-btn:hover,
+a.u-button-style:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: var(--bme-shadow-md) !important;
+}
+
+/* Button active/pressed state */
+.u-btn:active,
+.u-button-style:active {
+    transform: translateY(0) !important;
+    box-shadow: var(--bme-shadow-sm) !important;
+}
+
+/* Primary CTA buttons (cyan/teal color) */
+.u-btn.u-custom-color-3:hover,
+.u-button-style.u-custom-color-3:hover {
+    box-shadow: 0 8px 25px rgba(23, 237, 209, 0.35) !important;
+}
+
+/* Secondary buttons (purple) */
+.u-btn.u-custom-color-2:hover,
+.u-button-style.u-custom-color-2:hover {
+    box-shadow: 0 8px 25px rgba(110, 79, 227, 0.35) !important;
+}
+
+/* Dark navy buttons */
+.u-btn.u-custom-color-4:hover,
+.u-button-style.u-custom-color-4:hover {
+    box-shadow: 0 8px 25px rgba(16, 28, 53, 0.35) !important;
+}
+
+/* ==========================================================================
+   SECTION ENHANCEMENTS
+   ========================================================================== */
+
+/* Section fade-in animation */
+section {
+    opacity: 0 !important;
+    transform: translateY(20px) !important;
+    transition: opacity var(--bme-transition-slow),
+        transform var(--bme-transition-slow) !important;
+}
+
+/* Section visible state - class added via JS */
+section.visible,
+section.u-section-row-container {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+/* Header always visible */
+header.u-header {
+    opacity: 1 !important;
+    transform: none !important;
+}
+
+/* Footer always visible */
+footer.u-footer {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+/* Section hover subtle effect */
+section:not(.u-header):not(.u-footer):hover {
+    /* Subtle highlight on hover */
+}
+
+/* ==========================================================================
+   CARD & CONTAINER ENHANCEMENTS
+   ========================================================================== */
+
+/* Container style cards */
+.u-container-style {
+    transition: box-shadow var(--bme-transition-normal),
+        transform var(--bme-transition-normal) !important;
+}
+
+/* Repeater items (used in lists, keynote speakers, etc.) */
+.u-repeater-item {
+    transition: transform var(--bme-transition-normal),
+        box-shadow var(--bme-transition-normal) !important;
+}
+
+.u-repeater-item:hover {
+    transform: translateY(-4px) !important;
+    box-shadow: var(--bme-shadow-md) !important;
+}
+
+/* ==========================================================================
+   IMAGE ENHANCEMENTS
+   ========================================================================== */
+
+/* All images smooth load */
+img {
+    transition: opacity var(--bme-transition-normal),
+        transform var(--bme-transition-normal) !important;
+}
+
+/* Image hover zoom effect (subtle) */
+.u-image:not(.u-image-1):hover {
+    transform: scale(1.02) !important;
+}
+
+/* Gallery images */
+.u-gallery .u-image:hover {
+    transform: scale(1.05) !important;
+}
+
+/* ==========================================================================
+   TABLE ENHANCEMENTS
+   ========================================================================== */
+
+/* Table row hover */
+.u-table-entity tr {
+    transition: background-color var(--bme-transition-fast) !important;
+}
+
+.u-table-entity tbody tr:hover {
+    background-color: rgba(23, 237, 209, 0.08) !important;
+}
+
+/* Table cell styling */
+.u-table-cell {
+    transition: background-color var(--bme-transition-fast) !important;
+}
+
+/* ==========================================================================
+   FORM ENHANCEMENTS
+   ========================================================================== */
+
+/* Form inputs */
+.u-input,
+.u-field-input,
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+textarea,
+select {
+    transition: border-color var(--bme-transition-fast),
+        box-shadow var(--bme-transition-fast) !important;
+}
+
+.u-input:focus,
+.u-field-input:focus,
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--bme-accent) !important;
+    box-shadow: 0 0 0 3px rgba(23, 237, 209, 0.15) !important;
+}
+
+/* ==========================================================================
+   LINK ENHANCEMENTS
+   ========================================================================== */
+
+/* Text links */
+a.u-link {
+    transition: color var(--bme-transition-fast),
+        text-decoration var(--bme-transition-fast) !important;
+}
+
+a.u-link:hover {
+    text-decoration: underline !important;
+    text-underline-offset: 3px !important;
+}
+
+/* Download links (paper downloads) */
+a.u-file-link {
+    transition: all var(--bme-transition-normal) !important;
+}
+
+a.u-file-link:hover {
+    transform: translateX(4px) !important;
+}
+
+/* ==========================================================================
+   FOOTER ENHANCEMENTS
+   ========================================================================== */
+
+.u-footer {
+    position: relative !important;
+}
+
+.u-footer::before {
+    content: "" !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 4px !important;
+    background: linear-gradient(
+        90deg,
+        var(--bme-accent),
+        var(--bme-secondary),
+        var(--bme-blue)
+    ) !important;
+}
+
+/* Footer links */
+.u-footer a {
+    transition: color var(--bme-transition-fast),
+        opacity var(--bme-transition-fast) !important;
+}
+
+.u-footer a:hover {
+    opacity: 0.8 !important;
+}
+
+/* ==========================================================================
+   SCROLL INDICATOR (HOMEPAGE)
+   ========================================================================== */
+
+/* Optional: Add scroll down indicator */
+.scroll-indicator {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: bounce 2s infinite;
+    opacity: 0.7;
+    cursor: pointer;
+    transition: opacity var(--bme-transition-fast);
+}
+
+.scroll-indicator:hover {
+    opacity: 1;
+}
+
+@keyframes bounce {
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateX(-50%) translateY(0);
+    }
+    40% {
+        transform: translateX(-50%) translateY(-10px);
+    }
+    60% {
+        transform: translateX(-50%) translateY(-5px);
+    }
+}
+
+/* ==========================================================================
+   LOADING STATES
+   ========================================================================== */
+
+/* Page loading animation */
+.page-loading {
+    opacity: 0;
+    transition: opacity var(--bme-transition-slow);
+}
+
+.page-loaded {
+    opacity: 1;
+}
+
+/* ==========================================================================
+   ACCESSIBILITY ENHANCEMENTS
+   ========================================================================== */
+
+/* Skip to main content link (add via JS) */
+.skip-link {
+    position: absolute !important;
+    top: -40px !important;
+    left: 0 !important;
+    background: var(--bme-primary) !important;
+    color: var(--bme-white) !important;
+    padding: 8px 16px !important;
+    z-index: 100000 !important;
+    transition: top var(--bme-transition-fast) !important;
+}
+
+.skip-link:focus {
+    top: 0 !important;
+}
+
+/* Reduced motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    section {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .u-btn,
+    .u-button-style {
+        border: 2px solid currentColor !important;
+    }
+
+    .u-nav-link::after {
+        height: 3px !important;
+    }
+}
+
+/* ==========================================================================
+   PRINT STYLES
+   ========================================================================== */
+
+@media print {
+    .u-header {
+        position: relative !important;
+        box-shadow: none !important;
+    }
+
+    .u-footer::before {
+        display: none !important;
+    }
+
+    section {
+        opacity: 1 !important;
+        transform: none !important;
+        page-break-inside: avoid;
+    }
+
+    .u-btn,
+    .u-hamburger-link,
+    .u-nav-container-collapse {
+        display: none !important;
+    }
+}
+
+/* ==========================================================================
+   MOBILE RESPONSIVE ENHANCEMENTS
+   ========================================================================== */
+
+@media (max-width: 991px) {
+    /* Larger touch targets */
+    .u-nav-link {
+        padding: 14px 12px !important;
+        min-height: 48px !important;
+    }
+
+    .u-btn,
+    .u-button-style {
+        min-height: 48px !important;
+        padding: 12px 24px !important;
+    }
+
+    /* Disable hover transform on touch devices */
+    .u-btn:hover,
+    .u-button-style:hover {
+        transform: none !important;
+    }
+
+    .u-repeater-item:hover {
+        transform: none !important;
+    }
+
+    /* Mobile menu improvements */
+    .u-sidenav {
+        transition: transform var(--bme-transition-normal) !important;
+    }
+}
+
+@media (max-width: 767px) {
+    /* Even larger touch targets on small screens */
+    .u-nav-link {
+        padding: 16px 12px !important;
+    }
+
+    /* Section animations less dramatic on mobile */
+    section {
+        transform: translateY(10px) !important;
+    }
+}
+
+@media (max-width: 575px) {
+    /* Stack content better */
+    .u-repeater {
+        gap: 16px !important;
+    }
+
+    /* Footer adjustments */
+    .u-footer .u-sheet {
+        padding: 30px 15px !important;
+    }
+}
+
+/* ==========================================================================
+   ENTERPRISE NAVBAR V2 - MODERN REDESIGN
+   ========================================================================== */
+
+/* Main navigation container - glassmorphism effect */
+.u-header.enterprise-nav {
+    background: rgba(16, 28, 53, 0.95) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border-bottom: 1px solid rgba(23, 237, 209, 0.1) !important;
+}
+
+.u-header.enterprise-nav.scrolled {
+    background: rgba(16, 28, 53, 0.98) !important;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3) !important;
+    border-bottom: 1px solid rgba(23, 237, 209, 0.2) !important;
+}
+
+/* Gradient accent line under navbar */
+.u-header.enterprise-nav::after {
+    content: "" !important;
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 2px !important;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        var(--bme-accent) 20%,
+        var(--bme-secondary) 50%,
+        var(--bme-accent) 80%,
+        transparent 100%
+    ) !important;
+    opacity: 0.6 !important;
+    transition: opacity var(--bme-transition-normal) !important;
+}
+
+.u-header.enterprise-nav:hover::after {
+    opacity: 1 !important;
+}
+
+/* Navigation items - cleaner layout without pipe separators */
+.enterprise-nav .u-nav-container .u-nav-item {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.enterprise-nav .u-nav-container .u-nav-item .u-nav-link {
+    padding: 12px 16px !important;
+    font-weight: 500 !important;
+    font-size: 0.95rem !important;
+    letter-spacing: 0.3px !important;
+    color: rgba(255, 255, 255, 0.85) !important;
+    border-radius: 6px !important;
+    margin: 0 2px !important;
+    position: relative !important;
+    transition: all var(--bme-transition-fast) !important;
+}
+
+.enterprise-nav .u-nav-container .u-nav-item .u-nav-link:hover {
+    color: var(--bme-white) !important;
+    background: rgba(23, 237, 209, 0.1) !important;
+}
+
+/* Remove default underline animation for new navbar */
+.enterprise-nav .u-nav-container .u-nav-item .u-nav-link::after {
+    display: none !important;
+}
+
+/* Active nav item indicator */
+.enterprise-nav .u-nav-item.active .u-nav-link,
+.enterprise-nav .u-nav-item .u-nav-link.active {
+    color: var(--bme-accent) !important;
+    background: rgba(23, 237, 209, 0.15) !important;
+}
+
+/* CTA Register button - special styling */
+.enterprise-nav .u-nav-item.nav-cta .u-nav-link,
+.enterprise-nav .nav-cta-btn {
+    background: linear-gradient(
+        135deg,
+        var(--bme-accent) 0%,
+        #14d4bc 100%
+    ) !important;
+    color: var(--bme-primary) !important;
+    font-weight: 600 !important;
+    padding: 10px 20px !important;
+    border-radius: 25px !important;
+    margin-left: 8px !important;
+    box-shadow: 0 4px 15px rgba(23, 237, 209, 0.3) !important;
+    transition: all var(--bme-transition-normal) !important;
+}
+
+.enterprise-nav .u-nav-item.nav-cta .u-nav-link:hover,
+.enterprise-nav .nav-cta-btn:hover {
+    transform: translateY(-2px) scale(1.02) !important;
+    box-shadow: 0 6px 25px rgba(23, 237, 209, 0.45) !important;
+    background: linear-gradient(
+        135deg,
+        #1ffae0 0%,
+        var(--bme-accent) 100%
+    ) !important;
+}
+
+/* Dropdown styling - enhanced */
+.enterprise-nav .u-nav-popup {
+    background: rgba(16, 28, 53, 0.98) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(23, 237, 209, 0.15) !important;
+    border-radius: 12px !important;
+    padding: 8px !important;
+    margin-top: 0 !important;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4) !important;
+    min-width: 200px !important;
+    /* Force dropdown to work with hover */
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transform: translateY(10px) !important;
+    transition: all 0.2s ease !important;
+    position: absolute !important;
+    top: 100% !important;
+    left: 0 !important;
+    z-index: 10000 !important;
+}
+
+/* Show dropdown on hover */
+.enterprise-nav .u-nav-item.has-dropdown:hover > .u-nav-popup,
+.enterprise-nav .u-nav-item[aria-haspopup="true"]:hover > .u-nav-popup,
+.enterprise-nav .u-nav-item.dropdown-open > .u-nav-popup {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0) !important;
+}
+
+/* Ensure parent has relative positioning */
+.enterprise-nav .u-nav-item.has-dropdown,
+.enterprise-nav .u-nav-item[aria-haspopup="true"] {
+    position: relative !important;
+}
+
+.enterprise-nav .u-nav-popup .u-nav-item .u-nav-link {
+    padding: 10px 16px !important;
+    border-radius: 8px !important;
+    margin: 2px 0 !important;
+    color: rgba(255, 255, 255, 0.8) !important;
+    display: block !important;
+    pointer-events: auto !important;
+    background: transparent !important;
+}
+
+/* Reset visited link styles in dropdown */
+.enterprise-nav .u-nav-popup .u-nav-item .u-nav-link:visited {
+    color: rgba(255, 255, 255, 0.8) !important;
+    background: transparent !important;
+}
+
+.enterprise-nav .u-nav-popup .u-nav-item .u-nav-link:hover {
+    background: rgba(23, 237, 209, 0.15) !important;
+    color: var(--bme-accent) !important;
+}
+
+/* Active page in dropdown - only the current page, not visited */
+.enterprise-nav .u-nav-popup .u-nav-item .u-nav-link.active-page {
+    color: var(--bme-accent) !important;
+    background: rgba(23, 237, 209, 0.1) !important;
+}
+
+/* Make sure dropdown items are clickable */
+.enterprise-nav .u-nav-popup .u-nav-item {
+    pointer-events: auto !important;
+}
+
+.enterprise-nav .u-nav-popup ul {
+    pointer-events: auto !important;
+}
+
+/* Dropdown indicator arrow */
+.enterprise-nav .u-nav-item[aria-haspopup="true"] > .u-nav-link::before,
+.enterprise-nav .has-dropdown > .u-nav-link::before {
+    content: "▾" !important;
+    margin-left: 6px !important;
+    font-size: 0.75rem !important;
+    opacity: 0.7 !important;
+    transition: transform var(--bme-transition-fast) !important;
+    display: inline-block !important;
+}
+
+.enterprise-nav .u-nav-item[aria-haspopup="true"]:hover > .u-nav-link::before,
+.enterprise-nav .has-dropdown:hover > .u-nav-link::before {
+    transform: rotate(180deg) !important;
+    opacity: 1 !important;
+}
+
+/* Mobile menu enhancements */
+.enterprise-nav .u-sidenav {
+    background: rgba(16, 28, 53, 0.98) !important;
+    backdrop-filter: blur(25px) !important;
+    -webkit-backdrop-filter: blur(25px) !important;
+}
+
+.enterprise-nav .u-sidenav .u-nav-link {
+    padding: 16px 24px !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+    font-size: 1rem !important;
+}
+
+.enterprise-nav .u-sidenav .u-nav-link:hover {
+    background: rgba(23, 237, 209, 0.1) !important;
+    padding-left: 32px !important;
+}
+
+/* Hamburger menu icon enhancement */
+.enterprise-nav .u-hamburger-link {
+    width: 44px !important;
+    height: 44px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 8px !important;
+    background: rgba(23, 237, 209, 0.1) !important;
+    transition: all var(--bme-transition-fast) !important;
+}
+
+.enterprise-nav .u-hamburger-link:hover {
+    background: rgba(23, 237, 209, 0.2) !important;
+}
+
+.enterprise-nav .u-hamburger-link svg {
+    fill: var(--bme-accent) !important;
+}
+
+/* Logo adjustments in enterprise nav */
+.enterprise-nav .u-image-1 {
+    max-height: 50px !important;
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2)) !important;
+}
+
+/* Responsive adjustments for enterprise nav */
+@media (max-width: 1199px) {
+    .enterprise-nav .u-nav-container .u-nav-item .u-nav-link {
+        padding: 10px 12px !important;
+        font-size: 0.9rem !important;
+    }
+
+    .enterprise-nav .u-nav-item.nav-cta .u-nav-link {
+        padding: 8px 16px !important;
+    }
+}
+
+@media (max-width: 991px) {
+    .enterprise-nav .u-sidenav {
+        width: 280px !important;
+    }
+
+    .enterprise-nav .u-nav-item.nav-cta .u-nav-link {
+        display: block !important;
+        text-align: center !important;
+        margin: 16px 24px !important;
+        border-radius: 25px !important;
+    }
+}
