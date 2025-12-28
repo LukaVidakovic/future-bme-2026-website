@@ -203,35 +203,44 @@
             }
         });
 
-        // Build mobile navigation HTML (flattened structure)
+        // Build mobile navigation HTML - SAME structure as desktop with collapsible dropdown
         let mobileNavHTML = "";
+
         newNavStructure.forEach((item) => {
+            const ctaClass = item.isCTA ? " nav-cta" : "";
+
             if (item.isDropdown && item.dropdown) {
-                // Add dropdown parent as header
+                // Dropdown menu - collapsible on mobile
                 mobileNavHTML += `
-                    <li role="none" class="u-nav-item" style="border-top: 1px solid rgba(255,255,255,0.1); margin-top: 8px; padding-top: 8px;">
-                        <span class="u-button-style u-nav-link" style="opacity: 0.6; font-size: 0.85em; text-transform: uppercase; letter-spacing: 1px;">${item.label}</span>
+                    <li role="none" class="u-nav-item mobile-dropdown">
+                        <div class="mobile-dropdown-toggle">
+                            <span class="mobile-dropdown-label">${
+                                item.label
+                            }</span>
+                            <span class="dropdown-arrow">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                </svg>
+                            </span>
+                        </div>
+                        <ul class="mobile-dropdown-menu">
+                            ${item.dropdown
+                                .filter((subItem) => !subItem.isDivider)
+                                .map(
+                                    (subItem) => `
+                                <li role="none" class="u-nav-item">
+                                    <a role="menuitem" class="u-button-style u-nav-link" href="${subItem.href}">${subItem.label}</a>
+                                </li>
+                            `
+                                )
+                                .join("")}
+                        </ul>
                     </li>`;
-                // Add dropdown items
-                item.dropdown.forEach((subItem) => {
-                    if (!subItem.isDivider) {
-                        mobileNavHTML += `
-                            <li role="none" class="u-nav-item">
-                                <a role="menuitem" class="u-button-style u-nav-link" href="${subItem.href}">${subItem.label}</a>
-                            </li>`;
-                    }
-                });
             } else {
-                const ctaStyle = item.isCTA
-                    ? "background: linear-gradient(135deg, #17edd1 0%, #14d4bc 100%); color: #101c35; border-radius: 25px; margin: 16px 24px; text-align: center; font-weight: 600;"
-                    : "";
+                // Regular item or CTA
                 mobileNavHTML += `
-                    <li role="none" class="u-nav-item${
-                        item.isCTA ? " nav-cta" : ""
-                    }">
-                        <a role="menuitem" class="u-button-style u-nav-link" href="${
-                            item.href
-                        }" style="${ctaStyle}">${item.label}</a>
+                    <li role="none" class="u-nav-item${ctaClass}">
+                        <a role="menuitem" class="u-button-style u-nav-link" href="${item.href}">${item.label}</a>
                     </li>`;
             }
         });
@@ -241,10 +250,21 @@
 
         if (mobileNavContainer) {
             mobileNavContainer.innerHTML = mobileNavHTML;
+            console.log(
+                "📱 Mobile nav HTML applied. Check for .mobile-dropdown:",
+                mobileNavContainer.querySelectorAll(".mobile-dropdown").length,
+                "dropdowns found"
+            );
+            console.log("Mobile nav HTML:", mobileNavHTML.substring(0, 500));
+        } else {
+            console.log(
+                "❌ No mobile nav container found (.u-nav-container-collapse .u-nav-3)"
+            );
         }
 
         // Initialize dropdown functionality
         initDropdownHandlers();
+        initMobileDropdownHandlers();
 
         // Add animation class after content is loaded (triggers staggered animation)
         const header = document.querySelector(".u-header");
@@ -314,6 +334,69 @@
     }
 
     // ==========================================================================
+    // MOBILE DROPDOWN HANDLERS
+    // ==========================================================================
+
+    function initMobileDropdownHandlers() {
+        // Handle both click and touch for mobile dropdown
+        function handleToggle(e) {
+            const toggle = e.target.closest(".mobile-dropdown-toggle");
+            if (!toggle) return;
+
+            console.log("📱 Mobile dropdown toggle clicked!", toggle);
+
+            e.preventDefault();
+            e.stopPropagation();
+
+            const parentItem = toggle.closest(".mobile-dropdown");
+            if (!parentItem) {
+                console.log("❌ No parent .mobile-dropdown found");
+                return;
+            }
+
+            const dropdownMenu = parentItem.querySelector(
+                ".mobile-dropdown-menu"
+            );
+            if (!dropdownMenu) {
+                console.log("❌ No .mobile-dropdown-menu found");
+                return;
+            }
+
+            const isOpen = parentItem.classList.contains(
+                "mobile-dropdown-open"
+            );
+            console.log("Current state:", isOpen ? "open" : "closed");
+
+            // Close all other mobile dropdowns
+            document.querySelectorAll(".mobile-dropdown-open").forEach((el) => {
+                if (el !== parentItem) {
+                    el.classList.remove("mobile-dropdown-open");
+                    const menu = el.querySelector(".mobile-dropdown-menu");
+                    if (menu) menu.style.maxHeight = "0px";
+                }
+            });
+
+            // Toggle current
+            if (isOpen) {
+                parentItem.classList.remove("mobile-dropdown-open");
+                dropdownMenu.style.maxHeight = "0px";
+                console.log("✅ Dropdown CLOSED");
+            } else {
+                parentItem.classList.add("mobile-dropdown-open");
+                const height = dropdownMenu.scrollHeight;
+                dropdownMenu.style.maxHeight = height + "px";
+                console.log("✅ Dropdown OPENED, height:", height);
+            }
+        }
+
+        // Use both click and touchend for better mobile support
+        document.addEventListener("click", handleToggle);
+        document.addEventListener("touchend", handleToggle, { passive: false });
+
+        console.log("✓ Mobile dropdown handlers initialized");
+    }
+
+    // ==========================================================================
     // HEADER SCROLL EFFECT
     // ==========================================================================
 
@@ -323,6 +406,27 @@
 
         // Add enterprise-nav class for enhanced styling
         header.classList.add("enterprise-nav");
+
+        // FORCE sticky positioning by removing overflow from ALL ancestors
+        let parent = header.parentElement;
+        while (parent && parent !== document.body) {
+            const computedStyle = window.getComputedStyle(parent);
+            if (
+                computedStyle.overflow !== "visible" ||
+                computedStyle.overflowY !== "visible" ||
+                computedStyle.overflowX !== "visible"
+            ) {
+                parent.style.overflow = "visible";
+                parent.style.overflowX = "visible";
+                parent.style.overflowY = "visible";
+                console.log("Fixed overflow on:", parent.className);
+            }
+            parent = parent.parentElement;
+        }
+
+        // Force body overflow
+        document.body.style.overflowX = "hidden";
+        document.body.style.overflowY = "visible";
 
         const handleScroll = debounce(() => {
             if (window.scrollY > CONFIG.scrollThreshold) {
@@ -336,6 +440,36 @@
 
         // Initial check
         handleScroll();
+    }
+
+    // ==========================================================================
+    // SCROLL PROGRESS BAR
+    // ==========================================================================
+
+    function initScrollProgress() {
+        // Create progress bar elements
+        const container = document.createElement("div");
+        container.className = "scroll-progress-container";
+
+        const progressBar = document.createElement("div");
+        progressBar.className = "scroll-progress-bar";
+
+        container.appendChild(progressBar);
+        document.body.prepend(container);
+
+        // Update progress on scroll
+        const updateProgress = () => {
+            const scrollTop = window.scrollY;
+            const docHeight =
+                document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (scrollTop / docHeight) * 100;
+            progressBar.style.width = `${Math.min(progress, 100)}%`;
+        };
+
+        window.addEventListener("scroll", updateProgress, { passive: true });
+        updateProgress(); // Initial call
+
+        console.log("✓ Scroll progress bar initialized");
     }
 
     // ==========================================================================
@@ -486,53 +620,37 @@
     // ==========================================================================
 
     function initBackToTop() {
-        // Check if button already exists
-        if (document.querySelector(".back-to-top")) return;
+        // Look for existing button in HTML first
+        let button = document.querySelector("#back-to-top");
 
-        // Create button
-        const button = document.createElement("button");
-        button.className = "back-to-top";
-        button.innerHTML = `
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M18 15l-6-6-6 6"/>
-            </svg>
-        `;
-        button.setAttribute("aria-label", "Back to top");
-        button.style.cssText = `
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: #101c35;
-            color: white;
-            border: none;
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            z-index: 9998;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 16px rgba(16, 28, 53, 0.2);
-        `;
+        // If not found, create one dynamically
+        if (!button) {
+            button = document.createElement("button");
+            button.id = "back-to-top";
+            button.className = "back-to-top";
+            button.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="18 15 12 9 6 15"></polyline>
+                </svg>
+            `;
+            button.setAttribute("aria-label", "Back to top");
+            button.setAttribute("title", "Back to top");
+            document.body.appendChild(button);
+        }
 
-        document.body.appendChild(button);
-
-        // Show/hide based on scroll
+        // Show/hide based on scroll using CSS class
         const handleScroll = debounce(() => {
             if (window.scrollY > 500) {
-                button.style.opacity = "1";
-                button.style.visibility = "visible";
+                button.classList.add("visible");
             } else {
-                button.style.opacity = "0";
-                button.style.visibility = "hidden";
+                button.classList.remove("visible");
             }
         }, CONFIG.debounceDelay);
 
         window.addEventListener("scroll", handleScroll, { passive: true });
+
+        // Check initial state
+        handleScroll();
 
         // Click handler
         button.addEventListener("click", () => {
@@ -540,17 +658,6 @@
                 top: 0,
                 behavior: prefersReducedMotion() ? "auto" : "smooth",
             });
-        });
-
-        // Hover effect
-        button.addEventListener("mouseenter", () => {
-            button.style.transform = "translateY(-3px)";
-            button.style.boxShadow = "0 6px 20px rgba(16, 28, 53, 0.3)";
-        });
-
-        button.addEventListener("mouseleave", () => {
-            button.style.transform = "translateY(0)";
-            button.style.boxShadow = "0 4px 16px rgba(16, 28, 53, 0.2)";
         });
     }
 
@@ -630,6 +737,113 @@
     }
 
     // ==========================================================================
+    // MOBILE HAMBURGER ENHANCEMENT
+    // ==========================================================================
+
+    function initMobileHamburger() {
+        const hamburgerLink = document.querySelector(".u-hamburger-link");
+        if (!hamburgerLink) return;
+
+        // Create custom hamburger icon
+        const existingSvg = hamburgerLink.querySelector("svg");
+        if (existingSvg) {
+            // Replace with custom animated hamburger
+            const hamburgerIcon = document.createElement("div");
+            hamburgerIcon.className = "hamburger-icon";
+            hamburgerIcon.innerHTML = `
+                <span class="hamburger-line line-1"></span>
+                <span class="hamburger-line line-2"></span>
+                <span class="hamburger-line line-3"></span>
+            `;
+            existingSvg.replaceWith(hamburgerIcon);
+        }
+
+        // Add CSS for animated hamburger icon
+        const style = document.createElement("style");
+        style.textContent = `
+            .hamburger-icon {
+                width: 22px;
+                height: 16px;
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+            
+            .hamburger-line {
+                display: block;
+                width: 100%;
+                height: 2px;
+                background: var(--bme-accent, #17edd1);
+                border-radius: 2px;
+                transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                transform-origin: center;
+            }
+            
+            .hamburger-line.line-2 {
+                width: 75%;
+                margin-left: auto;
+            }
+            
+            /* Hover effect */
+            .u-hamburger-link:hover .hamburger-line.line-2 {
+                width: 100%;
+            }
+            
+            /* Active state - transform to X */
+            .u-hamburger-link.menu-open .hamburger-line.line-1 {
+                transform: translateY(7px) rotate(45deg);
+            }
+            
+            .u-hamburger-link.menu-open .hamburger-line.line-2 {
+                opacity: 0;
+                width: 0;
+            }
+            
+            .u-hamburger-link.menu-open .hamburger-line.line-3 {
+                transform: translateY(-7px) rotate(-45deg);
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Toggle menu-open class when menu opens/closes
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.attributeName === "class") {
+                    const sidenav = document.querySelector(".u-sidenav");
+                    if (sidenav) {
+                        const isOpen =
+                            sidenav.classList.contains("u-sidenav-open") ||
+                            sidenav.style.display === "block" ||
+                            window.getComputedStyle(sidenav).left === "0px";
+
+                        if (isOpen) {
+                            hamburgerLink.classList.add("menu-open");
+                        } else {
+                            hamburgerLink.classList.remove("menu-open");
+                        }
+                    }
+                }
+            });
+        });
+
+        const sidenav = document.querySelector(".u-sidenav");
+        if (sidenav) {
+            observer.observe(sidenav, { attributes: true });
+        }
+
+        // Also listen to close button
+        const closeBtn = document.querySelector(".u-menu-close");
+        if (closeBtn) {
+            closeBtn.addEventListener("click", () => {
+                hamburgerLink.classList.remove("menu-open");
+            });
+        }
+
+        console.log("✓ Mobile hamburger enhanced");
+    }
+
+    // ==========================================================================
     // PAGE LOAD ANIMATION
     // ==========================================================================
 
@@ -687,6 +901,8 @@
         try {
             initEnterpriseNavbar(); // Transform navbar structure
             initHeaderScroll();
+            initScrollProgress(); // Scroll progress bar
+            initMobileHamburger(); // Enhanced hamburger icon
             initSectionReveal();
             initSmoothScroll();
             initActiveNavHighlight();
