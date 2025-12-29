@@ -1,0 +1,1017 @@
+/**
+ * FUTURE-BME 2026 - Design System Entry Point
+ * Version: 1.0.0
+ * 
+ * Main design system file that imports all components and utilities.
+ * Import this file to get the complete design system.
+ */
+
+/* ==========================================================================
+   DESIGN SYSTEM IMPORTS - Load all design system components
+   ========================================================================== */
+
+/* Core design tokens */
+@import url("./tokens.css");
+
+/* Typography system */
+@import url("./typography.css");
+
+/* Component library */
+@import url("./components.css");
+
+/* Animation system */
+@import url("./animations.css");
+
+/* ==========================================================================
+   GLOBAL RESET - Normalize and reset styles
+   ========================================================================== */
+
+/* Modern CSS reset */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    line-height: 1.15;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    margin: 0;
+    font-family: var(--font-primary);
+    font-size: var(--text-base);
+    line-height: var(--leading-body);
+    color: var(--text-primary);
+    background: var(--bg-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Remove default button styles */
+button {
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+}
+
+/* Remove default list styles */
+ul,
+ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Remove default link styles */
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* Image defaults */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Form element defaults */
+input,
+textarea,
+select {
+    font: inherit;
+    color: inherit;
+}
+
+/* Table defaults */
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/* ==========================================================================
+   LAYOUT UTILITIES - Flexbox and grid utilities
+   ========================================================================== */
+
+/* Container */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--space-4);
+}
+
+.container-sm {
+    max-width: 640px;
+}
+
+.container-md {
+    max-width: 768px;
+}
+
+.container-lg {
+    max-width: 1024px;
+}
+
+.container-xl {
+    max-width: 1280px;
+}
+
+.container-2xl {
+    max-width: 1536px;
+}
+
+/* Flexbox utilities */
+.flex {
+    display: flex;
+}
+
+.inline-flex {
+    display: inline-flex;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.flex-row {
+    flex-direction: row;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+.flex-nowrap {
+    flex-wrap: nowrap;
+}
+
+.items-start {
+    align-items: flex-start;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.items-end {
+    align-items: flex-end;
+}
+
+.items-stretch {
+    align-items: stretch;
+}
+
+.justify-start {
+    justify-content: flex-start;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.justify-end {
+    justify-content: flex-end;
+}
+
+.justify-between {
+    justify-content: space-between;
+}
+
+.justify-around {
+    justify-content: space-around;
+}
+
+.justify-evenly {
+    justify-content: space-evenly;
+}
+
+.flex-1 {
+    flex: 1 1 0%;
+}
+
+.flex-auto {
+    flex: 1 1 auto;
+}
+
+.flex-none {
+    flex: none;
+}
+
+/* Grid utilities */
+.grid {
+    display: grid;
+}
+
+.grid-cols-1 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+.grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.grid-cols-5 {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+.grid-cols-6 {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+.grid-cols-12 {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+}
+
+.col-span-1 {
+    grid-column: span 1 / span 1;
+}
+.col-span-2 {
+    grid-column: span 2 / span 2;
+}
+.col-span-3 {
+    grid-column: span 3 / span 3;
+}
+.col-span-4 {
+    grid-column: span 4 / span 4;
+}
+.col-span-5 {
+    grid-column: span 5 / span 5;
+}
+.col-span-6 {
+    grid-column: span 6 / span 6;
+}
+.col-span-full {
+    grid-column: 1 / -1;
+}
+
+.gap-0 {
+    gap: var(--space-0);
+}
+.gap-1 {
+    gap: var(--space-1);
+}
+.gap-2 {
+    gap: var(--space-2);
+}
+.gap-3 {
+    gap: var(--space-3);
+}
+.gap-4 {
+    gap: var(--space-4);
+}
+.gap-5 {
+    gap: var(--space-5);
+}
+.gap-6 {
+    gap: var(--space-6);
+}
+.gap-8 {
+    gap: var(--space-8);
+}
+.gap-10 {
+    gap: var(--space-10);
+}
+.gap-12 {
+    gap: var(--space-12);
+}
+
+/* ==========================================================================
+   SPACING UTILITIES - Margin and padding utilities
+   ========================================================================== */
+
+/* Margin utilities */
+.m-0 {
+    margin: var(--space-0);
+}
+.m-1 {
+    margin: var(--space-1);
+}
+.m-2 {
+    margin: var(--space-2);
+}
+.m-3 {
+    margin: var(--space-3);
+}
+.m-4 {
+    margin: var(--space-4);
+}
+.m-5 {
+    margin: var(--space-5);
+}
+.m-6 {
+    margin: var(--space-6);
+}
+.m-8 {
+    margin: var(--space-8);
+}
+.m-10 {
+    margin: var(--space-10);
+}
+.m-12 {
+    margin: var(--space-12);
+}
+.m-auto {
+    margin: auto;
+}
+
+.mx-0 {
+    margin-left: var(--space-0);
+    margin-right: var(--space-0);
+}
+.mx-1 {
+    margin-left: var(--space-1);
+    margin-right: var(--space-1);
+}
+.mx-2 {
+    margin-left: var(--space-2);
+    margin-right: var(--space-2);
+}
+.mx-3 {
+    margin-left: var(--space-3);
+    margin-right: var(--space-3);
+}
+.mx-4 {
+    margin-left: var(--space-4);
+    margin-right: var(--space-4);
+}
+.mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.my-0 {
+    margin-top: var(--space-0);
+    margin-bottom: var(--space-0);
+}
+.my-1 {
+    margin-top: var(--space-1);
+    margin-bottom: var(--space-1);
+}
+.my-2 {
+    margin-top: var(--space-2);
+    margin-bottom: var(--space-2);
+}
+.my-3 {
+    margin-top: var(--space-3);
+    margin-bottom: var(--space-3);
+}
+.my-4 {
+    margin-top: var(--space-4);
+    margin-bottom: var(--space-4);
+}
+.my-6 {
+    margin-top: var(--space-6);
+    margin-bottom: var(--space-6);
+}
+.my-8 {
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-8);
+}
+
+.mt-0 {
+    margin-top: var(--space-0);
+}
+.mt-1 {
+    margin-top: var(--space-1);
+}
+.mt-2 {
+    margin-top: var(--space-2);
+}
+.mt-4 {
+    margin-top: var(--space-4);
+}
+.mt-6 {
+    margin-top: var(--space-6);
+}
+.mt-8 {
+    margin-top: var(--space-8);
+}
+
+.mb-0 {
+    margin-bottom: var(--space-0);
+}
+.mb-1 {
+    margin-bottom: var(--space-1);
+}
+.mb-2 {
+    margin-bottom: var(--space-2);
+}
+.mb-4 {
+    margin-bottom: var(--space-4);
+}
+.mb-6 {
+    margin-bottom: var(--space-6);
+}
+.mb-8 {
+    margin-bottom: var(--space-8);
+}
+
+/* Padding utilities */
+.p-0 {
+    padding: var(--space-0);
+}
+.p-1 {
+    padding: var(--space-1);
+}
+.p-2 {
+    padding: var(--space-2);
+}
+.p-3 {
+    padding: var(--space-3);
+}
+.p-4 {
+    padding: var(--space-4);
+}
+.p-5 {
+    padding: var(--space-5);
+}
+.p-6 {
+    padding: var(--space-6);
+}
+.p-8 {
+    padding: var(--space-8);
+}
+.p-10 {
+    padding: var(--space-10);
+}
+.p-12 {
+    padding: var(--space-12);
+}
+
+.px-0 {
+    padding-left: var(--space-0);
+    padding-right: var(--space-0);
+}
+.px-1 {
+    padding-left: var(--space-1);
+    padding-right: var(--space-1);
+}
+.px-2 {
+    padding-left: var(--space-2);
+    padding-right: var(--space-2);
+}
+.px-3 {
+    padding-left: var(--space-3);
+    padding-right: var(--space-3);
+}
+.px-4 {
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+}
+.px-6 {
+    padding-left: var(--space-6);
+    padding-right: var(--space-6);
+}
+.px-8 {
+    padding-left: var(--space-8);
+    padding-right: var(--space-8);
+}
+
+.py-0 {
+    padding-top: var(--space-0);
+    padding-bottom: var(--space-0);
+}
+.py-1 {
+    padding-top: var(--space-1);
+    padding-bottom: var(--space-1);
+}
+.py-2 {
+    padding-top: var(--space-2);
+    padding-bottom: var(--space-2);
+}
+.py-3 {
+    padding-top: var(--space-3);
+    padding-bottom: var(--space-3);
+}
+.py-4 {
+    padding-top: var(--space-4);
+    padding-bottom: var(--space-4);
+}
+.py-6 {
+    padding-top: var(--space-6);
+    padding-bottom: var(--space-6);
+}
+.py-8 {
+    padding-top: var(--space-8);
+    padding-bottom: var(--space-8);
+}
+
+/* ==========================================================================
+   DISPLAY UTILITIES - Display and visibility utilities
+   ========================================================================== */
+
+.block {
+    display: block;
+}
+.inline-block {
+    display: inline-block;
+}
+.inline {
+    display: inline;
+}
+.hidden {
+    display: none;
+}
+
+.visible {
+    visibility: visible;
+}
+.invisible {
+    visibility: hidden;
+}
+
+.opacity-0 {
+    opacity: 0;
+}
+.opacity-25 {
+    opacity: 0.25;
+}
+.opacity-50 {
+    opacity: 0.5;
+}
+.opacity-75 {
+    opacity: 0.75;
+}
+.opacity-100 {
+    opacity: 1;
+}
+
+/* ==========================================================================
+   POSITION UTILITIES - Positioning utilities
+   ========================================================================== */
+
+.static {
+    position: static;
+}
+.fixed {
+    position: fixed;
+}
+.absolute {
+    position: absolute;
+}
+.relative {
+    position: relative;
+}
+.sticky {
+    position: sticky;
+}
+
+.inset-0 {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+.top-0 {
+    top: 0;
+}
+.right-0 {
+    right: 0;
+}
+.bottom-0 {
+    bottom: 0;
+}
+.left-0 {
+    left: 0;
+}
+
+/* Z-index utilities */
+.z-0 {
+    z-index: var(--z-base);
+}
+.z-10 {
+    z-index: var(--z-dropdown);
+}
+.z-20 {
+    z-index: var(--z-sticky);
+}
+.z-30 {
+    z-index: var(--z-fixed);
+}
+.z-40 {
+    z-index: var(--z-modal-backdrop);
+}
+.z-50 {
+    z-index: var(--z-modal);
+}
+
+/* ==========================================================================
+   SIZE UTILITIES - Width and height utilities
+   ========================================================================== */
+
+.w-auto {
+    width: auto;
+}
+.w-full {
+    width: 100%;
+}
+.w-screen {
+    width: 100vw;
+}
+.w-fit {
+    width: fit-content;
+}
+
+.h-auto {
+    height: auto;
+}
+.h-full {
+    height: 100%;
+}
+.h-screen {
+    height: 100vh;
+}
+.h-fit {
+    height: fit-content;
+}
+
+.min-h-0 {
+    min-height: 0;
+}
+.min-h-full {
+    min-height: 100%;
+}
+.min-h-screen {
+    min-height: 100vh;
+}
+
+.max-w-none {
+    max-width: none;
+}
+.max-w-xs {
+    max-width: 20rem;
+}
+.max-w-sm {
+    max-width: 24rem;
+}
+.max-w-md {
+    max-width: 28rem;
+}
+.max-w-lg {
+    max-width: 32rem;
+}
+.max-w-xl {
+    max-width: 36rem;
+}
+.max-w-2xl {
+    max-width: 42rem;
+}
+.max-w-3xl {
+    max-width: 48rem;
+}
+.max-w-4xl {
+    max-width: 56rem;
+}
+.max-w-5xl {
+    max-width: 64rem;
+}
+.max-w-6xl {
+    max-width: 72rem;
+}
+.max-w-7xl {
+    max-width: 80rem;
+}
+
+/* ==========================================================================
+   BACKGROUND UTILITIES - Background utilities
+   ========================================================================== */
+
+.bg-transparent {
+    background-color: transparent;
+}
+.bg-primary {
+    background-color: var(--bme-primary);
+}
+.bg-secondary {
+    background-color: var(--bme-secondary);
+}
+.bg-accent {
+    background-color: var(--bme-accent);
+}
+.bg-surface {
+    background-color: var(--bg-surface);
+}
+.bg-glass {
+    background-color: var(--bg-glass);
+}
+
+/* ==========================================================================
+   BORDER UTILITIES - Border utilities
+   ========================================================================== */
+
+.border {
+    border: 1px solid var(--border-primary);
+}
+.border-0 {
+    border: 0;
+}
+.border-2 {
+    border: 2px solid var(--border-primary);
+}
+
+.border-t {
+    border-top: 1px solid var(--border-primary);
+}
+.border-r {
+    border-right: 1px solid var(--border-primary);
+}
+.border-b {
+    border-bottom: 1px solid var(--border-primary);
+}
+.border-l {
+    border-left: 1px solid var(--border-primary);
+}
+
+.border-accent {
+    border-color: var(--border-accent);
+}
+.border-transparent {
+    border-color: transparent;
+}
+
+.rounded-none {
+    border-radius: var(--radius-none);
+}
+.rounded-sm {
+    border-radius: var(--radius-sm);
+}
+.rounded {
+    border-radius: var(--radius-md);
+}
+.rounded-md {
+    border-radius: var(--radius-md);
+}
+.rounded-lg {
+    border-radius: var(--radius-lg);
+}
+.rounded-xl {
+    border-radius: var(--radius-xl);
+}
+.rounded-2xl {
+    border-radius: var(--radius-2xl);
+}
+.rounded-3xl {
+    border-radius: var(--radius-3xl);
+}
+.rounded-full {
+    border-radius: var(--radius-full);
+}
+
+/* ==========================================================================
+   SHADOW UTILITIES - Box shadow utilities
+   ========================================================================== */
+
+.shadow-none {
+    box-shadow: none;
+}
+.shadow-sm {
+    box-shadow: var(--shadow-sm);
+}
+.shadow {
+    box-shadow: var(--shadow-md);
+}
+.shadow-md {
+    box-shadow: var(--shadow-md);
+}
+.shadow-lg {
+    box-shadow: var(--shadow-lg);
+}
+.shadow-xl {
+    box-shadow: var(--shadow-xl);
+}
+.shadow-2xl {
+    box-shadow: var(--shadow-2xl);
+}
+
+.shadow-accent {
+    box-shadow: var(--shadow-accent);
+}
+.shadow-secondary {
+    box-shadow: var(--shadow-secondary);
+}
+.shadow-primary {
+    box-shadow: var(--shadow-primary);
+}
+
+/* ==========================================================================
+   RESPONSIVE UTILITIES - Responsive design utilities
+   ========================================================================== */
+
+/* Small screens and up */
+@media (min-width: 640px) {
+    .sm\:block {
+        display: block;
+    }
+    .sm\:hidden {
+        display: none;
+    }
+    .sm\:flex {
+        display: flex;
+    }
+    .sm\:grid {
+        display: grid;
+    }
+
+    .sm\:grid-cols-1 {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+    .sm\:grid-cols-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .sm\:grid-cols-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .sm\:text-sm {
+        font-size: var(--text-sm);
+    }
+    .sm\:text-base {
+        font-size: var(--text-base);
+    }
+    .sm\:text-lg {
+        font-size: var(--text-lg);
+    }
+
+    .sm\:p-4 {
+        padding: var(--space-4);
+    }
+    .sm\:p-6 {
+        padding: var(--space-6);
+    }
+    .sm\:px-6 {
+        padding-left: var(--space-6);
+        padding-right: var(--space-6);
+    }
+}
+
+/* Medium screens and up */
+@media (min-width: 768px) {
+    .md\:block {
+        display: block;
+    }
+    .md\:hidden {
+        display: none;
+    }
+    .md\:flex {
+        display: flex;
+    }
+    .md\:grid {
+        display: grid;
+    }
+
+    .md\:grid-cols-1 {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+    .md\:grid-cols-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .md\:grid-cols-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .md\:grid-cols-4 {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .md\:text-base {
+        font-size: var(--text-base);
+    }
+    .md\:text-lg {
+        font-size: var(--text-lg);
+    }
+    .md\:text-xl {
+        font-size: var(--text-xl);
+    }
+
+    .md\:p-6 {
+        padding: var(--space-6);
+    }
+    .md\:p-8 {
+        padding: var(--space-8);
+    }
+    .md\:px-8 {
+        padding-left: var(--space-8);
+        padding-right: var(--space-8);
+    }
+}
+
+/* Large screens and up */
+@media (min-width: 1024px) {
+    .lg\:block {
+        display: block;
+    }
+    .lg\:hidden {
+        display: none;
+    }
+    .lg\:flex {
+        display: flex;
+    }
+    .lg\:grid {
+        display: grid;
+    }
+
+    .lg\:grid-cols-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .lg\:grid-cols-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .lg\:grid-cols-4 {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+    .lg\:grid-cols-5 {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    .lg\:text-lg {
+        font-size: var(--text-lg);
+    }
+    .lg\:text-xl {
+        font-size: var(--text-xl);
+    }
+    .lg\:text-2xl {
+        font-size: var(--text-2xl);
+    }
+
+    .lg\:p-8 {
+        padding: var(--space-8);
+    }
+    .lg\:p-12 {
+        padding: var(--space-12);
+    }
+}
+
+/* Extra large screens and up */
+@media (min-width: 1280px) {
+    .xl\:grid-cols-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .xl\:grid-cols-4 {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+    .xl\:grid-cols-5 {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+    .xl\:grid-cols-6 {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+
+    .xl\:text-xl {
+        font-size: var(--text-xl);
+    }
+    .xl\:text-2xl {
+        font-size: var(--text-2xl);
+    }
+    .xl\:text-3xl {
+        font-size: var(--text-3xl);
+    }
+}
+
+/* ==========================================================================
+   PRINT STYLES - Print-specific styles
+   ========================================================================== */
+
+@media print {
+    .print\:hidden {
+        display: none !important;
+    }
+    .print\:block {
+        display: block !important;
+    }
+
+    * {
+        color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+    }
+
+    body {
+        background: white !important;
+        color: black !important;
+    }
+}
+
+/* ==========================================================================
+   DARK MODE UTILITIES - Dark mode specific utilities
+   ========================================================================== */
+
+@media (prefers-color-scheme: dark) {
+    .dark\:bg-primary {
+        background-color: var(--bme-primary);
+    }
+    .dark\:text-primary {
+        color: var(--text-primary);
+    }
+    .dark\:border-primary {
+        border-color: var(--border-primary);
+    }
+}

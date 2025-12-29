@@ -1,0 +1,258 @@
+/**
+ * FUTURE-BME 2026 - Design System Tokens
+ * Version: 1.0.0
+ * 
+ * CSS Custom Properties for consistent theming across the website.
+ * These tokens maintain the existing brand identity while enabling
+ * enterprise-grade design consistency.
+ */
+
+:root {
+    /* ==========================================================================
+       BRAND COLORS - Existing identity preserved
+       ========================================================================== */
+
+    /* Primary Colors */
+    --bme-primary: #101c35; /* Dark Navy - Main brand color */
+    --bme-primary-light: #1a2a45; /* Lighter variant */
+    --bme-primary-dark: #0a1525; /* Darker variant */
+
+    /* Secondary Colors */
+    --bme-secondary: #6e4fe3; /* Purple - Secondary brand */
+    --bme-secondary-light: #8b6fe6; /* Lighter variant */
+    --bme-secondary-dark: #5a3fd0; /* Darker variant */
+
+    /* Accent Colors */
+    --bme-accent: #17edd1; /* Cyan/Teal - Primary accent */
+    --bme-accent-light: #3df0d6; /* Lighter variant */
+    --bme-accent-dark: #14c7b0; /* Darker variant */
+
+    /* Supporting Colors */
+    --bme-blue: #5380dd; /* Light Blue */
+    --bme-blue-light: #6b8fe0; /* Lighter variant */
+    --bme-blue-dark: #4670d0; /* Darker variant */
+
+    --bme-teal: #176370; /* Dark Teal */
+    --bme-teal-light: #1e7a89; /* Lighter variant */
+    --bme-teal-dark: #124c57; /* Darker variant */
+
+    /* ==========================================================================
+       SEMANTIC COLORS - Functional color assignments
+       ========================================================================== */
+
+    /* Status Colors */
+    --color-success: #4caf50;
+    --color-success-light: #66bb6a;
+    --color-success-dark: #388e3c;
+
+    --color-warning: #ff9800;
+    --color-warning-light: #ffb74d;
+    --color-warning-dark: #f57c00;
+
+    --color-error: #f44336;
+    --color-error-light: #ef5350;
+    --color-error-dark: #d32f2f;
+
+    --color-info: var(--bme-blue);
+    --color-info-light: var(--bme-blue-light);
+    --color-info-dark: var(--bme-blue-dark);
+
+    /* ==========================================================================
+       NEUTRAL COLORS - Grayscale palette
+       ========================================================================== */
+
+    --color-white: #ffffff;
+    --color-gray-50: #fafafa;
+    --color-gray-100: #f5f5f5;
+    --color-gray-200: #eeeeee;
+    --color-gray-300: #e0e0e0;
+    --color-gray-400: #bdbdbd;
+    --color-gray-500: #9e9e9e;
+    --color-gray-600: #757575;
+    --color-gray-700: #616161;
+    --color-gray-800: #424242;
+    --color-gray-900: #212121;
+    --color-black: #000000;
+
+    /* ==========================================================================
+       BACKGROUND COLORS - Surface colors with transparency
+       ========================================================================== */
+
+    --bg-primary: var(--bme-primary);
+    --bg-secondary: var(--bme-secondary);
+    --bg-surface: rgba(255, 255, 255, 0.05);
+    --bg-surface-hover: rgba(255, 255, 255, 0.08);
+    --bg-surface-active: rgba(255, 255, 255, 0.12);
+
+    --bg-overlay: rgba(0, 0, 0, 0.5);
+    --bg-overlay-light: rgba(0, 0, 0, 0.3);
+    --bg-overlay-dark: rgba(0, 0, 0, 0.7);
+
+    /* Glass morphism backgrounds */
+    --bg-glass: rgba(255, 255, 255, 0.1);
+    --bg-glass-hover: rgba(255, 255, 255, 0.15);
+    --bg-glass-border: rgba(255, 255, 255, 0.2);
+
+    /* ==========================================================================
+       TEXT COLORS - Typography color system
+       ========================================================================== */
+
+    --text-primary: var(--color-white);
+    --text-secondary: rgba(255, 255, 255, 0.8);
+    --text-tertiary: rgba(255, 255, 255, 0.6);
+    --text-disabled: rgba(255, 255, 255, 0.4);
+
+    --text-accent: var(--bme-accent);
+    --text-link: var(--bme-accent);
+    --text-link-hover: var(--bme-accent-light);
+
+    /* Dark text variants for light backgrounds */
+    --text-dark-primary: var(--color-gray-900);
+    --text-dark-secondary: var(--color-gray-700);
+    --text-dark-tertiary: var(--color-gray-600);
+
+    /* ==========================================================================
+       BORDER COLORS - Border and divider colors
+       ========================================================================== */
+
+    --border-primary: rgba(255, 255, 255, 0.2);
+    --border-secondary: rgba(255, 255, 255, 0.1);
+    --border-accent: var(--bme-accent);
+    --border-focus: var(--bme-accent);
+    --border-error: var(--color-error);
+
+    /* ==========================================================================
+       SHADOW SYSTEM - Elevation and depth
+       ========================================================================== */
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+    --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.25);
+
+    /* Colored shadows */
+    --shadow-accent: 0 8px 25px rgba(23, 237, 209, 0.35);
+    --shadow-secondary: 0 8px 25px rgba(110, 79, 227, 0.35);
+    --shadow-primary: 0 8px 25px rgba(16, 28, 53, 0.35);
+
+    /* ==========================================================================
+       SPACING SYSTEM - Consistent spacing scale
+       ========================================================================== */
+
+    --space-0: 0;
+    --space-1: 0.25rem; /* 4px */
+    --space-2: 0.5rem; /* 8px */
+    --space-3: 0.75rem; /* 12px */
+    --space-4: 1rem; /* 16px */
+    --space-5: 1.25rem; /* 20px */
+    --space-6: 1.5rem; /* 24px */
+    --space-8: 2rem; /* 32px */
+    --space-10: 2.5rem; /* 40px */
+    --space-12: 3rem; /* 48px */
+    --space-16: 4rem; /* 64px */
+    --space-20: 5rem; /* 80px */
+    --space-24: 6rem; /* 96px */
+    --space-32: 8rem; /* 128px */
+
+    /* ==========================================================================
+       BORDER RADIUS - Consistent corner rounding
+       ========================================================================== */
+
+    --radius-none: 0;
+    --radius-sm: 0.125rem; /* 2px */
+    --radius-md: 0.375rem; /* 6px */
+    --radius-lg: 0.5rem; /* 8px */
+    --radius-xl: 0.75rem; /* 12px */
+    --radius-2xl: 1rem; /* 16px */
+    --radius-3xl: 1.5rem; /* 24px */
+    --radius-full: 9999px; /* Fully rounded */
+
+    /* Component specific radius */
+    --radius-button: var(--radius-3xl);
+    --radius-card: var(--radius-2xl);
+    --radius-input: var(--radius-lg);
+
+    /* ==========================================================================
+       Z-INDEX SYSTEM - Layering system
+       ========================================================================== */
+
+    --z-base: 0;
+    --z-dropdown: 10;
+    --z-sticky: 20;
+    --z-fixed: 30;
+    --z-modal-backdrop: 40;
+    --z-modal: 50;
+    --z-popover: 60;
+    --z-tooltip: 70;
+    --z-toast: 80;
+    --z-max: 9999;
+
+    /* ==========================================================================
+       ANIMATION SYSTEM - Consistent timing and easing
+       ========================================================================== */
+
+    /* Duration */
+    --duration-fast: 150ms;
+    --duration-normal: 300ms;
+    --duration-slow: 500ms;
+    --duration-slower: 750ms;
+
+    /* Easing functions */
+    --ease-linear: linear;
+    --ease-in: cubic-bezier(0.4, 0, 1, 1);
+    --ease-out: cubic-bezier(0, 0, 0.2, 1);
+    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    /* ==========================================================================
+       BREAKPOINTS - Responsive design breakpoints
+       ========================================================================== */
+
+    --breakpoint-xs: 475px;
+    --breakpoint-sm: 640px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 1024px;
+    --breakpoint-xl: 1280px;
+    --breakpoint-2xl: 1536px;
+
+    /* ==========================================================================
+       LEGACY NICEPAGE COMPATIBILITY - Maintain existing custom colors
+       ========================================================================== */
+
+    --u-custom-color-1: var(--bme-blue);
+    --u-custom-color-2: var(--bme-secondary);
+    --u-custom-color-3: var(--bme-accent);
+    --u-custom-color-4: var(--bme-primary);
+    --u-custom-color-5: var(--bme-teal);
+    --u-custom-color-6: var(--color-gray-100);
+    --u-custom-color-7: var(--color-gray-200);
+    --u-custom-color-8: var(--color-gray-800);
+    --u-custom-color-9: var(--color-gray-900);
+}
+
+/* ==========================================================================
+   DARK MODE SUPPORT - Future-proofing for dark mode toggle
+   ========================================================================== */
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        /* Dark mode is already the default, but we can adjust if needed */
+        --bg-surface: rgba(255, 255, 255, 0.03);
+        --bg-surface-hover: rgba(255, 255, 255, 0.06);
+        --bg-surface-active: rgba(255, 255, 255, 0.09);
+    }
+}
+
+/* ==========================================================================
+   REDUCED MOTION SUPPORT - Accessibility for motion-sensitive users
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    :root {
+        --duration-fast: 0ms;
+        --duration-normal: 0ms;
+        --duration-slow: 0ms;
+        --duration-slower: 0ms;
+    }
+}
